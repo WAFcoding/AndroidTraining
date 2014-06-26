@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ConnectionRefresh</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="btn_seconds">Imposta il tempo di refresh</string>
+    <string name="edttxt_seconds_hint">inserisci il tempo di refresh</string>
+    <string name="btn_refresh_now">Refresh Now</string>
+
+</resources>
