@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ChangeColor</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="tvColore">Color:</string>
+    <string name="btOK">Change</string>
+    <string name="etColor">Choose a color</string>
+
+</resources>
