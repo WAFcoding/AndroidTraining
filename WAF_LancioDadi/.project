@@ -30,4 +30,11 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>res/drawable-hdpi/1_black.png</name>
+			<type>1</type>
+			<location>/home/pasquale/Scaricati/universita/android/1_black.png</location>
+		</link>
+	</linkedResources>
 </projectDescription>
