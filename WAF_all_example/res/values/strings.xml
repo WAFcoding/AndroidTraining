@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WAF_all_example</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="label_player">Player Musicale</string>
+    <string name="btn_go">vai</string>
+    <string name="title_activity_player">PlayerActivity</string>
+    <string name="duration">500</string>
+
+</resources>
