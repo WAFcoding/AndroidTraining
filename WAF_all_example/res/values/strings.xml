@@ -7,5 +7,7 @@
     <string name="btn_go">vai</string>
     <string name="title_activity_player">PlayerActivity</string>
     <string name="duration">500</string>
+    <string name="btn_select_music">seleziona musica</string>
+    <string name="label_selected_file">il file selezionato è</string>
 
 </resources>

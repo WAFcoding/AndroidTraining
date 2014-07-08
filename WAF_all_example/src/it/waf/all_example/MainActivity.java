@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(MainActivity.this, PlayerActivity.class));
-				overridePendingTransition(R.anim.left_out, R.anim.right_in);
+				overridePendingTransition(R.anim.left_in, R.anim.right_out); 
 			}
 		});
 	}
