@@ -49,6 +49,8 @@ public class SimpleFileDialog {
 	private SimpleFileDialogListener m_SimpleFileDialogListener = null;
 	private ArrayAdapter<String> m_listAdapter = null;
 	
+	private String filter="";
+	
 	public interface SimpleFileDialogListener 
 	{
 		public void onChosenDir(String chosenDir);
@@ -85,8 +87,6 @@ public class SimpleFileDialog {
 	}
 	
 	public void chooseFile_or_Dir(String dir){
-		
-		//if(!dir.equals("")){
 
 			File dirFile= new File(dir);
 			if(!dirFile.exists() || !dirFile.isDirectory()){
@@ -165,12 +165,6 @@ public class SimpleFileDialog {
 
 			// Show directory chooser dialog
 			dirsDialog.show();
-			
-			
-		/*}
-		else{
-			Log.d(LOG, "chooseFile_or_Dir: string passed is empty");
-		}*/
 	}
 
 	private boolean createSubDir(String newDir)
@@ -178,6 +172,19 @@ public class SimpleFileDialog {
 		File newDirFile = new File(newDir);
 		if   (! newDirFile.exists() ) return newDirFile.mkdir();
 		else return false;
+	}
+	
+	public void setFilter(String filter){
+		
+		if(filter != null)
+			this.filter= filter;
+		else
+			Log.d(LOG, "setFilter: filter null.");
+	}
+	
+	//TODO 
+	public void setFilters(ArrayList<String> filters){
+		
 	}
 	
 	private List<String> getDirectories(String dir)
@@ -205,7 +212,13 @@ public class SimpleFileDialog {
 				else if (Select_type == FileSave || Select_type == FileOpen)
 				{
 					// Add file names to the list if we are doing a file save or file open operation
-					dirs.add( file.getName() );
+					if(filter.equals("mp3")){
+						if(file.getName().endsWith("mp3")){
+							dirs.add( file.getName() );
+						}
+					}
+					else
+						dirs.add( file.getName() );
 				}
 			}
 		}

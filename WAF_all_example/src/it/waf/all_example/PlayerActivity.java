@@ -1,11 +1,14 @@
 package it.waf.all_example;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.lang.Object;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,9 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class PlayerActivity extends Activity {
-	
-	private Button btn_select_music, btn_select_music_2;
-	private TextView label_selected_file;
+
+	private Button btn_select_music, btn_select_music_2, btn_music_play;
+	private TextView label_selected_file, label_selected_file2;
+	private String m_chosen;
+	int player_state;
+	MediaPlayer mp;
 
 	private static final int FILE_RESULT_CODE_GENERIC= 0;
 	private static final int FILE_RESULT_CODE_MUSIC= 1;
@@ -31,9 +37,14 @@ public class PlayerActivity extends Activity {
 		
 		btn_select_music= (Button) findViewById(R.id.button1);
 		btn_select_music_2= (Button) findViewById(R.id.button2);
+		btn_music_play= (Button) findViewById(R.id.button3);
 		addButtonListener();
-		
+
 		label_selected_file= (TextView) findViewById(R.id.textView1);
+		label_selected_file2= (TextView) findViewById(R.id.textView2);
+
+		mp= new MediaPlayer();
+		player_state= 0;
 	}
 	
 	public void addButtonListener(){
@@ -49,7 +60,6 @@ public class PlayerActivity extends Activity {
 		//TODO applicare dei filtri per solo il tipo di file di interesse
 		btn_select_music_2.setOnClickListener(new OnClickListener() {
 			
-			String m_chosen;
 			
 			@Override
 			public void onClick(View v) {
@@ -60,13 +70,47 @@ public class PlayerActivity extends Activity {
 					public void onChosenDir(String chosenDir) {
 						
 						m_chosen= chosenDir;
-						label_selected_file.append(m_chosen + "\n");
+						label_selected_file2.append(m_chosen + "\n");
 						Toast.makeText(PlayerActivity.this, "Chosen FileOpenDialog File: " + m_chosen, Toast.LENGTH_LONG).show(); 
 					}
 				});
 				
-				FileOpenDialog.Default_File_Name = ""; 
+				FileOpenDialog.Default_File_Name = "";
+				FileOpenDialog.setFilter("mp3");
 				FileOpenDialog.chooseFile_or_Dir();
+			}
+		});
+		
+		btn_music_play.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+
+				
+				if(player_state == 0){
+					
+					player_state= 1;
+					
+					Uri file_to_play= Uri.parse(m_chosen);
+					mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+					try {
+						mp.setDataSource(getApplicationContext(), file_to_play);
+						mp.prepare();
+						mp.start();
+					} catch (IllegalArgumentException | SecurityException
+							| IllegalStateException | IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				else if(player_state == 1){
+					
+					player_state= 0;
+					mp.pause();
+					mp.reset();
+				}
+				
+				
 			}
 		});
 	}
@@ -84,9 +128,6 @@ public class PlayerActivity extends Activity {
 		
 	}
 	
-	public void fileChooserMusic(){
-		
-	}
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data){
